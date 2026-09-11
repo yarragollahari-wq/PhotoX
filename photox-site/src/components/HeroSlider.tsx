@@ -126,7 +126,7 @@ export function HeroSlider({ tag = "Live Galleries" }: { tag?: string }) {
                   }}
                 />
                 <PillButton
-                  label="View Gallery"
+                  label={slide.cta}
                   href={slide.href}
                   icon={<ArrowUpRightIcon />}
                   variant="overlay"

@@ -89,6 +89,14 @@ export const MegaphoneIcon = (p: IconProps) => (
   />
 );
 
+
+export const MagnifyingGlassIcon = (p: IconProps) => (
+  <Phosphor
+    {...p}
+    d="M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z"
+  />
+);
+
 /** Template logo mark: ring — path copied from the template's inline SVG symbol. */
 export const LogoMark = (p: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 15 15" width="100%" height="100%" {...p}>
