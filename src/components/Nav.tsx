@@ -51,7 +51,7 @@ function ThemeToggle() {
 function Logo() {
   const { hovered, bind } = useHover();
   return (
-    <a href="#" {...bind} style={{ display: "flex", alignItems: "center", gap: 6, height: 15 }}>
+    <a href="/" {...bind} style={{ display: "flex", alignItems: "center", gap: 6, height: 15 }}>
       <span style={{ display: "block", width: 15, height: 15, color: "var(--text)" }}>
         <LogoMark />
       </span>
@@ -174,12 +174,12 @@ export function Nav() {
                 </div>
               </div>
               <nav style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%" }} aria-label="Menu">
-                {[{ label: "Home", href: "#" }, ...navLinks].map((l) => (
+                {[{ label: "Home", href: "/" }, ...navLinks].map((l) => (
                   <MenuItem key={l.label} {...l} onClick={() => setOpen(false)} />
                 ))}
                 <ActionButton
                   label="Join as a Photographer"
-                  href="#photographers"
+                  href="/photographers"
                   primary
                   icon={<CameraIcon />}
                   onClick={() => setOpen(false)}

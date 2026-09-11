@@ -96,7 +96,7 @@ img {
 }
 
 /* ------------------------------------------------------------------ */
-/* Page layout — cloned geometry (docs/research/BEHAVIORS.md → Layout) */
+/* Page layout — single scrolling column (template geometry: 12px gutters, 12px gaps) */
 /* ------------------------------------------------------------------ */
 .page-wrap {
   display: flex;
@@ -107,7 +107,7 @@ img {
   background: var(--bg);
 }
 
-.main {
+.page-col {
   position: relative;
   z-index: 2;
   display: flex;
@@ -115,57 +115,43 @@ img {
   align-items: flex-start;
   gap: 12px;
   width: 100%;
-  padding-top: 12px;
-}
-
-.left {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 0.871429 / 1;
-  z-index: 1;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  padding: 0 0 12px;
+  padding: 12px 0;
   min-width: 0;
 }
 
-.top-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+.hero {
+  position: relative;
   width: 100%;
-  scroll-margin-top: 12px;
+  height: clamp(420px, 62vh, 680px);
+  z-index: 1;
 }
 
-.actions {
-  display: none; /* phone/tablet: only the bottom grid remains, like the template */
-}
-
-.profile-card {
-  padding: 32px;
-  gap: 48px;
-  width: 100%;
-}
-
-.events {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-}
-
-.sports {
+.grid-4,
+.grid-3,
+.grid-2 {
   display: grid;
-  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   width: 100%;
+}
+.grid-4 > *,
+.grid-3 > *,
+.grid-2 > * {
+  min-width: 0;
+}
+
+.finder-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  width: 100%;
+}
+.finder-submit {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .footer-card {
@@ -182,58 +168,65 @@ img {
   gap: 48px;
 }
 
+/* dashboards */
+.dash {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.dash-side {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.dash-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+/* Phone only */
+@media (max-width: 809px) {
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero {
+    height: auto;
+    aspect-ratio: 0.871429 / 1;
+  }
+}
+
 /* Tablet ≥810px */
 @media (min-width: 810px) {
-  .events {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(50px, 1fr));
+  .grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .finder-row > label {
+    flex-basis: 0;
+  }
+  .finder-submit {
+    flex: 0 0 220px;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 /* Desktop ≥1200px */
 @media (min-width: 1200px) {
-  .main {
-    flex-direction: row;
-    padding-top: 0;
-  }
-  .left {
-    position: sticky;
-    top: 0;
-    flex: 1 0 0px;
-    width: 1px;
-    height: 100vh;
-    aspect-ratio: auto;
-    padding: 12px 0;
-    display: flex;
-    align-items: center;
-  }
-  .right {
-    flex: 1 0 0px;
-    width: 1px;
-    padding: 12px 0;
-  }
-  .top-grid {
-    flex-direction: row;
-  }
-  .actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    gap: 12px;
-    flex: 1 0 0px;
-    width: 1px;
-    max-width: 300px;
-  }
-  .actions > a {
-    flex: 1 0 0px;
-  }
-  .profile-card {
-    padding: 40px;
-    gap: 96px;
-  }
-  .events {
-    grid-template-columns: 1fr 1fr;
+  .grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .footer-card {
     padding: 64px 64px 48px;
@@ -247,5 +240,38 @@ img {
   .footer-cols {
     flex-direction: row;
     gap: 64px;
+  }
+  .dash {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .dash-side {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 260px;
+    position: sticky;
+    top: 12px;
+  }
+  .dash-main {
+    flex: 1 1 0px;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Watermark overlay for sample images (rights protection) */
+.watermark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='140'><text x='0' y='80' font-family='DM Sans, sans-serif' font-size='22' font-weight='500' fill='rgba(255,255,255,0.28)' transform='rotate(-24 110 70)'>PhotoX · PREVIEW</text></svg>");
+  background-size: 220px 140px;
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 809px) {
+  .detail {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }

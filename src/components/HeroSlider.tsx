@@ -120,7 +120,7 @@ export function HeroSlider({ tag = "Live Galleries" }: { tag?: string }) {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: "50% 0%",
+                    objectPosition: "50% 30%",
                     userSelect: "none",
                     pointerEvents: "none",
                   }}
@@ -208,6 +208,37 @@ export function HeroSlider({ tag = "Live Galleries" }: { tag?: string }) {
             />
           </button>
         ))}
+      </div>
+
+      {/* Top-right tab — active fixture + attribution counts (nav owns top-left) */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 16px 12px",
+          borderRadius: "0 0 0 18px",
+          background: "var(--bg)",
+          maxWidth: "calc(100% - 18px)",
+          zIndex: 2,
+        }}
+      >
+        <motion.p
+          key={active}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="t-body"
+          style={{ margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+        >
+          {heroSlides[active].title}
+          <span style={{ color: "var(--muted)" }}> · {heroSlides[active].meta}</span>
+        </motion.p>
+        <Notch curve="bl" style={{ top: 0, right: "100%" }} />
+        <Notch curve="bl" style={{ top: "100%", right: 0 }} />
       </div>
 
       {/* Bottom-right tab */}
